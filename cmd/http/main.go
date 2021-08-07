@@ -1,9 +1,7 @@
 package main
 
-import (
-	"github.com/mendezdev/mytheresa-api/app"
-)
+import "github.com/mendezdev/mytheresa-api/cmd/http/httpapp"
 
 func main() {
-	app.StartApplication()
+	httpapp.StartApplication()
 }

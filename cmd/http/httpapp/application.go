@@ -1,4 +1,4 @@
-package app
+package httpapp
 
 func StartApplication() {
 	router := routes()
