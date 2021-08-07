@@ -1,10 +1,12 @@
 package domain
 
 const (
-	EqualOperator = "equal"
+	EqualOperator = "=="
 )
 
-type DiscountResult int64
+type DiscountResult struct {
+	Percentage int64
+}
 
 type DiscountRequest map[string]interface{}
 
@@ -21,19 +23,19 @@ func NewDiscount() Discount {
 	return Discount{}
 }
 
-func (d Discount) GetDiscount(dr DiscountRequest) (*DiscountResult, error) {
+func (d Discount) GetDiscount(dr DiscountRequest) *DiscountResult {
 	if len(dr) == 0 {
-		return nil, nil
+		return nil
 	}
 
 	drVal, ok := dr[d.FieldName]
 	if !ok {
-		return nil, nil
+		return nil
 	}
 
 	isTypeOk := checkInterfaceType(drVal, d.ValueType)
 	if !isTypeOk {
-		return nil, nil
+		return nil
 	}
 
 	var discountResult DiscountResult
@@ -41,11 +43,12 @@ func (d Discount) GetDiscount(dr DiscountRequest) (*DiscountResult, error) {
 	switch d.Operator {
 	case EqualOperator:
 		if d.Value == drVal {
-			discountResult = DiscountResult(d.Apply)
+			discountResult.Percentage = d.Apply
+			return &discountResult
 		}
 	}
 
-	return &discountResult, nil
+	return nil
 }
 
 func checkInterfaceType(val interface{}, valueType string) bool {
@@ -53,8 +56,8 @@ func checkInterfaceType(val interface{}, valueType string) bool {
 	case "long":
 		_, ok := val.(int64)
 		return ok
-	case "decimal":
-		_, ok := val.(float64)
+	case "string":
+		_, ok := val.(string)
 		return ok
 	default:
 		return false
