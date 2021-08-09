@@ -21,6 +21,11 @@ type PriceAPIResponse struct {
 	Currency           string  `json:"currency"`
 }
 
+type ProductFilter struct {
+	Category  string
+	LesstThan *int64
+}
+
 type ProductDB struct {
 }
 
@@ -66,6 +71,13 @@ func (p Product) BuildProductResponse(dr *DiscountResult) (*ProductAPIResponse, 
 		Price:    price,
 	}
 	return &response, nil
+}
+
+func (p Product) ToDiscountRequest() DiscountRequest {
+	return DiscountRequest{
+		"category": p.Category,
+		"price":    p.Price,
+	}
 }
 
 func formatFinalPriceResponse(price float64) (int64, error) {
