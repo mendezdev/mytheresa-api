@@ -42,11 +42,15 @@ func (p Product) BuildProductResponse(dr *DiscountResult) (*ProductAPIResponse, 
 	}
 
 	if dr != nil {
-		discountPercentage := fmt.Sprintf("%d%", dr.Percentage)
+		discountPercentage := fmt.Sprintf("%d%s", dr.Percentage, "%")
 		price.DiscountPercentage = &discountPercentage
 
+		priceParsed, parseErr := fromLongToDecimal(p.Price)
+		if parseErr != nil {
+			return nil, errors.New("error trying to parse original price to decimal")
+		}
 		percetage := float64(1.0) - (float64(dr.Percentage) / 100)
-		finalPrice := float64(p.Price) * percetage
+		finalPrice := float64(priceParsed) * percetage
 		finalPriceParsed, parseErr := formatFinalPriceResponse(finalPrice)
 		if parseErr != nil {
 			return nil, errors.New("error trying to parse discount price")
@@ -54,6 +58,7 @@ func (p Product) BuildProductResponse(dr *DiscountResult) (*ProductAPIResponse, 
 		price.Final = &finalPriceParsed
 
 	}
+
 	response := ProductAPIResponse{
 		Sku:      p.Sku,
 		Name:     p.Name,
@@ -76,6 +81,10 @@ func formatFinalPriceResponse(price float64) (int64, error) {
 func fromLongToDecimal(val int64) (float64, error) {
 	parsed := fmt.Sprintf("%d", val)
 	splitted := strings.Split(parsed, "")
+	minimunDigits := 3
+	if len(splitted) < minimunDigits {
+		return 0, fmt.Errorf("error parsing long to decimal, should have %d digits minimum", minimunDigits)
+	}
 	base := splitted[0 : len(splitted)-2]
 	decimals := splitted[len(splitted)-2:]
 
