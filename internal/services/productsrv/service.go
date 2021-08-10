@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	productsLimit = 5
+	productsLimit = int64(5)
 )
 
 type service struct {
@@ -16,7 +16,8 @@ type service struct {
 
 func New(pr ports.ProductRepository, ds ports.DiscountService) ports.ProductService {
 	return &service{
-		productRepo: pr,
+		productRepo:     pr,
+		discountService: ds,
 	}
 }
 
