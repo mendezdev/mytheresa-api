@@ -35,16 +35,16 @@ func (m *MockProductService) EXPECT() *MockProductServiceMockRecorder {
 }
 
 // GetProductsByCategory mocks base method.
-func (m *MockProductService) GetProductsByCategory(arg0 domain.ProductFilter) ([]domain.ProductAPIResponse, error) {
+func (m *MockProductService) GetProductsByCategory(category string, lessThan *int64) ([]domain.ProductAPIResponse, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetProductsByCategory", arg0)
+	ret := m.ctrl.Call(m, "GetProductsByCategory", category, lessThan)
 	ret0, _ := ret[0].([]domain.ProductAPIResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetProductsByCategory indicates an expected call of GetProductsByCategory.
-func (mr *MockProductServiceMockRecorder) GetProductsByCategory(arg0 interface{}) *gomock.Call {
+func (mr *MockProductServiceMockRecorder) GetProductsByCategory(category, lessThan interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetProductsByCategory", reflect.TypeOf((*MockProductService)(nil).GetProductsByCategory), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetProductsByCategory", reflect.TypeOf((*MockProductService)(nil).GetProductsByCategory), category, lessThan)
 }

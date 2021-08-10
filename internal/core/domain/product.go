@@ -21,11 +21,6 @@ type PriceAPIResponse struct {
 	Currency           string  `json:"currency"`
 }
 
-type ProductFilter struct {
-	Category  string
-	LesstThan *int64
-}
-
 type ProductDB struct {
 }
 
