@@ -7,7 +7,7 @@ import (
 
 	"github.com/golang/mock/gomock"
 	"github.com/mendezdev/mytheresa-api/internal/core/domain"
-	"github.com/mendezdev/mytheresa-api/internal/ports"
+	"github.com/mendezdev/mytheresa-api/internal/core/ports"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -36,9 +36,8 @@ func TestProductOk(t *testing.T) {
 		Return(discounts, nil).
 		Times(1)
 
-	pf := domain.ProductFilter{
-		Category: "boots",
-	}
+	var category string = "boots"
+	var lessThan *int64
 
 	bootProduct := domain.Product{
 		Sku:      "00001",
@@ -57,11 +56,11 @@ func TestProductOk(t *testing.T) {
 	productsExpected := []domain.Product{bootProduct, shoeProduct}
 	mockProductRepo.
 		EXPECT().
-		GetByCategory(pf.Category, productsLimit, pf.LesstThan).
+		GetByCategory(category, productsLimit, lessThan).
 		Return(productsExpected, nil).
 		Times(1)
 
-	results, err := productSrv.GetProductsByCategory(pf)
+	results, err := productSrv.GetProductsByCategory(category, lessThan)
 	assert.Nil(t, err)
 	assert.Len(t, results, 2)
 
@@ -116,9 +115,8 @@ func TestProductDiscountError(t *testing.T) {
 		Return(nil, discountErr).
 		Times(1)
 
-	pf := domain.ProductFilter{
-		Category: "boots",
-	}
+	var category string = "boots"
+	var lessThan *int64
 
 	bootProduct := domain.Product{
 		Sku:      "00001",
@@ -137,11 +135,11 @@ func TestProductDiscountError(t *testing.T) {
 	productsExpected := []domain.Product{bootProduct, shoeProduct}
 	mockProductRepo.
 		EXPECT().
-		GetByCategory(pf.Category, productsLimit, pf.LesstThan).
+		GetByCategory(category, productsLimit, lessThan).
 		Return(productsExpected, nil).
 		Times(1)
 
-	_, err := productSrv.GetProductsByCategory(pf)
+	_, err := productSrv.GetProductsByCategory(category, lessThan)
 	assert.NotNil(t, err)
 }
 
@@ -155,16 +153,17 @@ func TestProductByCategoryReturnsEmptyResult(t *testing.T) {
 	productSrv := New(mockProductRepo, mockDiscountSrv)
 
 	productsExpected := make([]domain.Product, 0)
-	pf := domain.ProductFilter{
-		Category: "boots",
-	}
+
+	var category string = "boots"
+	var lessThan *int64
+
 	mockProductRepo.
 		EXPECT().
-		GetByCategory(pf.Category, productsLimit, pf.LesstThan).
+		GetByCategory(category, productsLimit, lessThan).
 		Return(productsExpected, nil).
 		Times(1)
 
-	result, err := productSrv.GetProductsByCategory(pf)
+	result, err := productSrv.GetProductsByCategory(category, lessThan)
 	assert.Nil(t, err)
 	assert.NotNil(t, result)
 	assert.Len(t, result, 0)

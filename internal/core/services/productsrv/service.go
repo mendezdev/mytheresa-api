@@ -2,7 +2,7 @@ package productsrv
 
 import (
 	"github.com/mendezdev/mytheresa-api/internal/core/domain"
-	"github.com/mendezdev/mytheresa-api/internal/ports"
+	"github.com/mendezdev/mytheresa-api/internal/core/ports"
 )
 
 const (
@@ -21,8 +21,8 @@ func New(pr ports.ProductRepository, ds ports.DiscountService) ports.ProductServ
 	}
 }
 
-func (srv *service) GetProductsByCategory(pf domain.ProductFilter) ([]domain.ProductAPIResponse, error) {
-	productsByCategory, err := srv.productRepo.GetByCategory(pf.Category, productsLimit, pf.LesstThan)
+func (srv *service) GetProductsByCategory(category string, lessThan *int64) ([]domain.ProductAPIResponse, error) {
+	productsByCategory, err := srv.productRepo.GetByCategory(category, productsLimit, lessThan)
 	if err != nil {
 		return nil, err
 	}
