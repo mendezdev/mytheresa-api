@@ -2,7 +2,7 @@ package discountsrv
 
 import (
 	"github.com/mendezdev/mytheresa-api/internal/core/domain"
-	"github.com/mendezdev/mytheresa-api/internal/ports"
+	"github.com/mendezdev/mytheresa-api/internal/core/ports"
 )
 
 type service struct {

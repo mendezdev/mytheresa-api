@@ -2,7 +2,7 @@ package productsrv
 
 import (
 	"github.com/mendezdev/mytheresa-api/internal/core/domain"
-	"github.com/mendezdev/mytheresa-api/internal/ports"
+	"github.com/mendezdev/mytheresa-api/internal/core/ports"
 )
 
 const (

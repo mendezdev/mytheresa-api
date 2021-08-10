@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mendezdev/mytheresa-api/internal/ports"
+	"github.com/mendezdev/mytheresa-api/internal/core/ports"
 )
 
 type HTTPHandler struct {
