@@ -1,6 +1,9 @@
 package producthdl
 
 import (
+	"net/http"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/mendezdev/mytheresa-api/internal/ports"
 )
@@ -16,7 +19,7 @@ func NewHTTPHandler(ps ports.ProductService) *HTTPHandler {
 }
 
 func (hdl *HTTPHandler) GetAll(c *gin.Context) {
-	/* category := c.Query("category")
+	category := c.Query("category")
 	if category == "" {
 		c.JSON(http.StatusBadRequest, "category query param is mandatory")
 		return
@@ -33,6 +36,11 @@ func (hdl *HTTPHandler) GetAll(c *gin.Context) {
 		lessThan = &n
 	}
 
-	filter := domain
-	hdl.productService.GetProductsByCategory() */
+	products, err := hdl.productService.GetProductsByCategory(category, lessThan)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, products)
 }
