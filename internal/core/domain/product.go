@@ -64,13 +64,12 @@ func (p Product) BuildProductResponse(dr *DiscountResult) (*ProductAPIResponse, 
 
 	}
 
-	response := ProductAPIResponse{
+	return &ProductAPIResponse{
 		Sku:      p.Sku,
 		Name:     p.Name,
 		Category: p.Category,
 		Price:    price,
-	}
-	return &response, nil
+	}, nil
 }
 
 func (p Product) ToDiscountRequest() DiscountRequest {
