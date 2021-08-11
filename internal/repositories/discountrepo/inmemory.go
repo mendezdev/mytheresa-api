@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	path = "./store/discountdb.json"
+	path = "../../store/discountdb.json"
 )
 
 var (
@@ -22,6 +22,7 @@ type inmemory struct {
 }
 
 func NewInMemory() ports.DiscountRepository {
+	fmt.Printf("[DISCOUNT_INMEMORY]: %d\n", len(discounts))
 	return &inmemory{
 		discounts: discounts,
 	}

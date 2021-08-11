@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	path = "./store/productsdb.json"
+	path = "../../store/productsdb.json"
 )
 
 var (
@@ -26,6 +26,7 @@ type inmemory struct {
 }
 
 func NewInMemory() ports.ProductRepository {
+	fmt.Printf("[PRODUCT_INMEMORY]: %d\n", len(byCategory))
 	return &inmemory{
 		byCategory: byCategory,
 	}
@@ -55,7 +56,7 @@ func init() {
 	fmt.Printf("products: %d\n", len(items.Products))
 
 	fmt.Println("structuring by category...")
-	byCategory := make(map[string][]domain.Product)
+	byCategory = make(map[string][]domain.Product)
 	for _, product := range items.Products {
 		_, ok := byCategory[product.Category]
 		if !ok {
