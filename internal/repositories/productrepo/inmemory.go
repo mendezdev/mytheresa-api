@@ -32,11 +32,12 @@ func NewInMemory() ports.ProductRepository {
 }
 
 func (mem *inmemory) GetByCategory(category string, limit int64, lessThan *int64) ([]domain.Product, error) {
-	return nil, nil
+	productCategory := mem.byCategory[category]
+	return productCategory, nil
 }
 
 func init() {
-	fmt.Println("trying to initialize inmemory db...")
+	fmt.Println("trying to initialize products inmemory db...")
 	data, err := os.ReadFile(path)
 	if err != nil {
 		panic(err)
