@@ -22,7 +22,6 @@ type inmemory struct {
 }
 
 func NewInMemory() ports.DiscountRepository {
-	fmt.Printf("[DISCOUNT_INMEMORY]: %d\n", len(discounts))
 	return &inmemory{
 		discounts: discounts,
 	}

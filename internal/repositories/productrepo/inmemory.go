@@ -26,7 +26,6 @@ type inmemory struct {
 }
 
 func NewInMemory() ports.ProductRepository {
-	fmt.Printf("[PRODUCT_INMEMORY]: %d\n", len(byCategory))
 	return &inmemory{
 		byCategory: byCategory,
 	}
