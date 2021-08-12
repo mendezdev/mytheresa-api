@@ -54,7 +54,7 @@ func (mem *inmemory) GetByCategory(category string, lessThan *int64) ([]domain.P
 		}
 		products = append(products, product)
 	}
-	return productCategory, nil
+	return products, nil
 }
 
 func init() {
