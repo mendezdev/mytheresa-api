@@ -35,16 +35,16 @@ func (m *MockProductRepository) EXPECT() *MockProductRepositoryMockRecorder {
 }
 
 // GetByCategory mocks base method.
-func (m *MockProductRepository) GetByCategory(category string, limit int64, lessThan *int64) ([]domain.Product, error) {
+func (m *MockProductRepository) GetByCategory(category string, lessThan *int64) ([]domain.Product, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetByCategory", category, limit, lessThan)
+	ret := m.ctrl.Call(m, "GetByCategory", category, lessThan)
 	ret0, _ := ret[0].([]domain.Product)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetByCategory indicates an expected call of GetByCategory.
-func (mr *MockProductRepositoryMockRecorder) GetByCategory(category, limit, lessThan interface{}) *gomock.Call {
+func (mr *MockProductRepositoryMockRecorder) GetByCategory(category, lessThan interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByCategory", reflect.TypeOf((*MockProductRepository)(nil).GetByCategory), category, limit, lessThan)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByCategory", reflect.TypeOf((*MockProductRepository)(nil).GetByCategory), category, lessThan)
 }

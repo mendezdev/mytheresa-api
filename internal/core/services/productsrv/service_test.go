@@ -56,7 +56,7 @@ func TestProductOk(t *testing.T) {
 	productsExpected := []domain.Product{bootProduct, shoeProduct}
 	mockProductRepo.
 		EXPECT().
-		GetByCategory(category, productsLimit, lessThan).
+		GetByCategory(category, lessThan).
 		Return(productsExpected, nil).
 		Times(1)
 
@@ -135,7 +135,7 @@ func TestProductDiscountError(t *testing.T) {
 	productsExpected := []domain.Product{bootProduct, shoeProduct}
 	mockProductRepo.
 		EXPECT().
-		GetByCategory(category, productsLimit, lessThan).
+		GetByCategory(category, lessThan).
 		Return(productsExpected, nil).
 		Times(1)
 
@@ -159,7 +159,7 @@ func TestProductByCategoryReturnsEmptyResult(t *testing.T) {
 
 	mockProductRepo.
 		EXPECT().
-		GetByCategory(category, productsLimit, lessThan).
+		GetByCategory(category, lessThan).
 		Return(productsExpected, nil).
 		Times(1)
 

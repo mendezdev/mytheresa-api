@@ -5,10 +5,6 @@ import (
 	"github.com/mendezdev/mytheresa-api/internal/core/ports"
 )
 
-const (
-	productsLimit = int64(5)
-)
-
 type service struct {
 	productRepo     ports.ProductRepository
 	discountService ports.DiscountService
@@ -22,7 +18,7 @@ func New(pr ports.ProductRepository, ds ports.DiscountService) ports.ProductServ
 }
 
 func (srv *service) GetProductsByCategory(category string, lessThan *int64) ([]domain.ProductAPIResponse, error) {
-	productsByCategory, err := srv.productRepo.GetByCategory(category, productsLimit, lessThan)
+	productsByCategory, err := srv.productRepo.GetByCategory(category, lessThan)
 	if err != nil {
 		return nil, err
 	}

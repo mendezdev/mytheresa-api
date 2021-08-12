@@ -11,7 +11,8 @@ import (
 )
 
 const (
-	path = "./store/productsdb.json"
+	path        = "./store/productsdb.json"
+	searchLimit = 5
 )
 
 var (
@@ -32,8 +33,27 @@ func NewInMemory() ports.ProductRepository {
 	}
 }
 
-func (mem *inmemory) GetByCategory(category string, limit int64, lessThan *int64) ([]domain.Product, error) {
-	productCategory := mem.byCategory[category]
+func (mem *inmemory) GetByCategory(category string, lessThan *int64) ([]domain.Product, error) {
+	productCategory, ok := mem.byCategory[category]
+	products := make([]domain.Product, 0)
+	if !ok {
+		return products, nil
+	}
+
+	for _, product := range productCategory {
+		if len(products) == searchLimit {
+			break
+		}
+		if lessThan != nil {
+			if product.Price < *lessThan {
+				products = append(products, product)
+			} else {
+				break
+			}
+			continue
+		}
+		products = append(products, product)
+	}
 	return productCategory, nil
 }
 
