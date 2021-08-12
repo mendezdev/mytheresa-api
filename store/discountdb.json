@@ -1,18 +1,18 @@
 [
     {
-        "field_name":"category",
-        "operator":"==",
-        "value":"boots",
-        "value_type":"string",
-        "priority":1,
-        "apply":30
-    },
-    {
         "field_name":"sku",
         "operator":"==",
         "value":"000003",
         "value_type":"string",
         "priority":2,
         "apply":15
+    },
+    {
+        "field_name":"category",
+        "operator":"==",
+        "value":"boots",
+        "value_type":"string",
+        "priority":1,
+        "apply":30
     }
 ]

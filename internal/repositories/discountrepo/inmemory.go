@@ -4,13 +4,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"sort"
 
 	"github.com/mendezdev/mytheresa-api/internal/core/domain"
 	"github.com/mendezdev/mytheresa-api/internal/core/ports"
 )
 
 const (
-	path = "../../store/discountdb.json"
+	path = "./store/discountdb.json"
 )
 
 var (
@@ -45,6 +46,12 @@ func init() {
 		panic(jsonErr)
 	}
 	fmt.Println("unmarshaling ok!")
+
+	fmt.Println("sorting discount by priority")
+	sort.Slice(discounts, func(i, j int) bool {
+		return discounts[i].Priority < discounts[j].Priority
+	})
+	fmt.Println("sorting finished!")
 
 	fmt.Printf("discounts: %d\n", len(discounts))
 }
