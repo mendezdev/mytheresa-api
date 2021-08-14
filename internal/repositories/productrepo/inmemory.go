@@ -8,6 +8,7 @@ import (
 
 	"github.com/mendezdev/mytheresa-api/internal/core/domain"
 	"github.com/mendezdev/mytheresa-api/internal/core/ports"
+	"github.com/mendezdev/mytheresa-api/pkg/apierrors"
 )
 
 const (
@@ -33,7 +34,7 @@ func NewInMemory() ports.ProductRepository {
 	}
 }
 
-func (mem *inmemory) GetByCategory(category string, lessThan *int64) ([]domain.Product, error) {
+func (mem *inmemory) GetByCategory(category string, lessThan *int64) ([]domain.Product, apierrors.ApiErr) {
 	productCategory, ok := mem.byCategory[category]
 	products := make([]domain.Product, 0)
 	if !ok {

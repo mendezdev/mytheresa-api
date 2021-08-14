@@ -9,6 +9,7 @@ import (
 
 	gomock "github.com/golang/mock/gomock"
 	domain "github.com/mendezdev/mytheresa-api/internal/core/domain"
+	apierrors "github.com/mendezdev/mytheresa-api/pkg/apierrors"
 )
 
 // MockDiscountRepository is a mock of DiscountRepository interface.
@@ -35,11 +36,11 @@ func (m *MockDiscountRepository) EXPECT() *MockDiscountRepositoryMockRecorder {
 }
 
 // GetDiscounts mocks base method.
-func (m *MockDiscountRepository) GetDiscounts() ([]domain.Discount, error) {
+func (m *MockDiscountRepository) GetDiscounts() ([]domain.Discount, apierrors.ApiErr) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetDiscounts")
 	ret0, _ := ret[0].([]domain.Discount)
-	ret1, _ := ret[1].(error)
+	ret1, _ := ret[1].(apierrors.ApiErr)
 	return ret0, ret1
 }
 

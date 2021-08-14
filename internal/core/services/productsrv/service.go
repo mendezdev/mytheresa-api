@@ -3,6 +3,7 @@ package productsrv
 import (
 	"github.com/mendezdev/mytheresa-api/internal/core/domain"
 	"github.com/mendezdev/mytheresa-api/internal/core/ports"
+	"github.com/mendezdev/mytheresa-api/pkg/apierrors"
 )
 
 type service struct {
@@ -17,7 +18,7 @@ func New(pr ports.ProductRepository, ds ports.DiscountService) ports.ProductServ
 	}
 }
 
-func (srv *service) GetProductsByCategory(category string, lessThan *int64) ([]domain.ProductAPIResponse, error) {
+func (srv *service) GetProductsByCategory(category string, lessThan *int64) ([]domain.ProductAPIResponse, apierrors.ApiErr) {
 	productsByCategory, err := srv.productRepo.GetByCategory(category, lessThan)
 	if err != nil {
 		return nil, err

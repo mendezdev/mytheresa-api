@@ -1,13 +1,13 @@
 package productsrv
 
 import (
-	"errors"
 	"fmt"
 	"testing"
 
 	"github.com/golang/mock/gomock"
 	"github.com/mendezdev/mytheresa-api/internal/core/domain"
 	"github.com/mendezdev/mytheresa-api/internal/core/ports"
+	"github.com/mendezdev/mytheresa-api/pkg/apierrors"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -108,7 +108,7 @@ func TestProductDiscountError(t *testing.T) {
 
 	productSrv := New(mockProductRepo, mockDiscountSrv)
 
-	discountErr := errors.New("discount error")
+	discountErr := apierrors.NewInternalServerError("discount error")
 	mockDiscountSrv.
 		EXPECT().
 		GetDiscounts().
