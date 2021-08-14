@@ -21,9 +21,6 @@ type PriceAPIResponse struct {
 	Currency           string  `json:"currency"`
 }
 
-type ProductDB struct {
-}
-
 type Product struct {
 	Sku      string `json:"sku"`
 	Name     string `json:"name"`

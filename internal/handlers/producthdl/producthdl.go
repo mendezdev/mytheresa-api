@@ -26,7 +26,7 @@ func (hdl *HTTPHandler) GetAll(c *gin.Context) {
 	}
 
 	var lessThan *int64
-	lessThanQuery := c.Query("category")
+	lessThanQuery := c.Query("less_than")
 	if lessThanQuery != "" {
 		n, err := strconv.ParseInt(lessThanQuery, 10, 64)
 		if err != nil {
