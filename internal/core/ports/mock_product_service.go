@@ -9,6 +9,7 @@ import (
 
 	gomock "github.com/golang/mock/gomock"
 	domain "github.com/mendezdev/mytheresa-api/internal/core/domain"
+	apierrors "github.com/mendezdev/mytheresa-api/pkg/apierrors"
 )
 
 // MockProductService is a mock of ProductService interface.
@@ -35,11 +36,11 @@ func (m *MockProductService) EXPECT() *MockProductServiceMockRecorder {
 }
 
 // GetProductsByCategory mocks base method.
-func (m *MockProductService) GetProductsByCategory(category string, lessThan *int64) ([]domain.ProductAPIResponse, error) {
+func (m *MockProductService) GetProductsByCategory(category string, lessThan *int64) ([]domain.ProductAPIResponse, apierrors.ApiErr) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetProductsByCategory", category, lessThan)
 	ret0, _ := ret[0].([]domain.ProductAPIResponse)
-	ret1, _ := ret[1].(error)
+	ret1, _ := ret[1].(apierrors.ApiErr)
 	return ret0, ret1
 }
 

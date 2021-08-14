@@ -3,6 +3,7 @@ package discountsrv
 import (
 	"github.com/mendezdev/mytheresa-api/internal/core/domain"
 	"github.com/mendezdev/mytheresa-api/internal/core/ports"
+	"github.com/mendezdev/mytheresa-api/pkg/apierrors"
 )
 
 type service struct {
@@ -15,7 +16,7 @@ func New(dr ports.DiscountRepository) ports.DiscountService {
 	}
 }
 
-func (srv *service) GetDiscounts() ([]domain.Discount, error) {
+func (srv *service) GetDiscounts() ([]domain.Discount, apierrors.ApiErr) {
 	discounts, err := srv.discountRepo.GetDiscounts()
 	if err != nil {
 		return nil, err

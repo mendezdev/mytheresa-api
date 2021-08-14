@@ -1,10 +1,11 @@
 package domain
 
 import (
-	"errors"
 	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/mendezdev/mytheresa-api/pkg/apierrors"
 )
 
 type ProductAPIResponse struct {
@@ -32,7 +33,7 @@ func NewProduct() Product {
 	return Product{}
 }
 
-func (p Product) BuildProductResponse(dr *DiscountResult) (*ProductAPIResponse, error) {
+func (p Product) BuildProductResponse(dr *DiscountResult) (*ProductAPIResponse, apierrors.ApiErr) {
 	price := PriceAPIResponse{
 		Original: p.Price,
 		Currency: "EUR",
@@ -44,13 +45,15 @@ func (p Product) BuildProductResponse(dr *DiscountResult) (*ProductAPIResponse, 
 
 		priceParsed, parseErr := fromLongToDecimal(p.Price)
 		if parseErr != nil {
-			return nil, errors.New("error trying to parse original price to decimal")
+			fmt.Printf("parse_error: %s", parseErr.Error())
+			return nil, apierrors.NewInternalServerError("error trying to parse original price to decimal")
 		}
 		percetage := float64(1.0) - (float64(dr.Percentage) / 100)
 		finalPrice := float64(priceParsed) * percetage
 		finalPriceParsed, parseErr := formatFinalPriceResponse(finalPrice)
 		if parseErr != nil {
-			return nil, errors.New("error trying to parse discount price")
+			fmt.Printf("parse_error: %s", parseErr.Error())
+			return nil, apierrors.NewInternalServerError("error trying to parse discount price")
 		}
 		price.Final = &finalPriceParsed
 

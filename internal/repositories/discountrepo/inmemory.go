@@ -8,6 +8,7 @@ import (
 
 	"github.com/mendezdev/mytheresa-api/internal/core/domain"
 	"github.com/mendezdev/mytheresa-api/internal/core/ports"
+	"github.com/mendezdev/mytheresa-api/pkg/apierrors"
 )
 
 const (
@@ -28,7 +29,7 @@ func NewInMemory() ports.DiscountRepository {
 	}
 }
 
-func (mem *inmemory) GetDiscounts() ([]domain.Discount, error) {
+func (mem *inmemory) GetDiscounts() ([]domain.Discount, apierrors.ApiErr) {
 	return mem.discounts, nil
 }
 

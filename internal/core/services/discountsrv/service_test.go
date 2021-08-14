@@ -1,12 +1,12 @@
 package discountsrv
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/golang/mock/gomock"
 	"github.com/mendezdev/mytheresa-api/internal/core/domain"
 	"github.com/mendezdev/mytheresa-api/internal/core/ports"
+	"github.com/mendezdev/mytheresa-api/pkg/apierrors"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -44,7 +44,7 @@ func TestDiscountErr(t *testing.T) {
 	mockRepo.
 		EXPECT().
 		GetDiscounts().
-		Return(nil, errors.New("error")).
+		Return(nil, apierrors.NewInternalServerError("error")).
 		Times(1)
 
 	_, err := srv.GetDiscounts()
